@@ -1,28 +1,18 @@
 {
-  "name": "viewer-walkthrough-online.viewer",
-  "version": "2.0.0",
-  "description": "Code sample for the Forge Viewer API",
+  "name": "autodesk-forge",
+  "version": "1.0.0",
+  "description": "",
   "main": "start.js",
   "scripts": {
-    "start": "node start.js"
+    "start": "node start.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "2-legged",
-    "auth",
-    "app",
-    "web",
-    "tutorial",
-    "sample"
-  ],
-  "author": "Autodesk (www.autodesk.com)",
-  "license": "MIT",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "multer": "^1.4.0"
-  },
-  "devDependencies": {
-    "eslint": "^5.0.1"
+    "express": "^4.17.1",
+    "forge-apis": "^0.8.6",
+    "multer": "^1.4.3"
   }
 }
