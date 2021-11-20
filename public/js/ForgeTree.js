@@ -1,3 +1,8 @@
+// Zhiyuan Li's test function for Forge API
+function test__fuction(){
+
+}
+
 
 $(document).ready(function () {
     prepareAppBucketTree();
@@ -5,6 +10,11 @@ $(document).ready(function () {
       $('#appBuckets').jstree(true).refresh();
     });
 
+    $('#testForgeAPI').click(function () {
+      console.log(viewables);
+      console.log(viewer);
+    });
+    
     $('#createNewBucket').click(function () {
       createNewBucket();
     });
