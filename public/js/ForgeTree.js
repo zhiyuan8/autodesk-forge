@@ -1,5 +1,20 @@
 // Zhiyuan Li's test function for Forge API
-function test__fuction(){
+function test_fuction(){
+  // function 1: goto 1 floor
+  // 1-1 print out information of all builds
+  for (child of viewables.parent.children){
+    console.log("building information: " + child);
+    alert(child);
+  }
+  console.log("building information: " + viewables.parent.children[0].data);
+  //
+  
+  var dbid = viewer.getSelection().empty? viewer.getSelection() : [119412];
+  console.log("dbid of object you selected by mouse: " + dbid);
+  
+
+
+  // test invalid dbid not inside current floor
 
 }
 
@@ -8,11 +23,6 @@ $(document).ready(function () {
     prepareAppBucketTree();
     $('#refreshBuckets').click(function () {
       $('#appBuckets').jstree(true).refresh();
-    });
-
-    $('#testForgeAPI').click(function () {
-      console.log(viewables);
-      console.log(viewer);
     });
     
     $('#createNewBucket').click(function () {
@@ -103,7 +113,7 @@ $(document).ready(function () {
       if (data != null && data.node != null && data.node.type == 'object') {
         $("#forgeViewer").empty();
         var urn = data.node.id;
-        console.log("urn = data.node.id : " + urn)
+        // console.log("urn = data.node.id : " + urn)
         getForgeToken(function (access_token) {
           jQuery.ajax({
             url: 'https://developer.api.autodesk.com/modelderivative/v2/designdata/' + urn + '/manifest',
@@ -111,7 +121,6 @@ $(document).ready(function () {
             success: function (res) {
               // $("#forgeViewer").html(res.status);
               // $("#forgeViewer").empty();
-              console.log(res); // print out whole object
               if (res.status === 'success') launchViewer(urn);
               else $("#forgeViewer").html('The translation job still running: ' + res.progress);
             },
