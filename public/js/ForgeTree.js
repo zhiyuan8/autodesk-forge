@@ -7,15 +7,6 @@ function test_fuction(){
     alert(child);
   }
   console.log("building information: " + viewables.parent.children[0].data);
-  //
-  
-  var dbid = viewer.getSelection().empty? viewer.getSelection() : [119412];
-  console.log("dbid of object you selected by mouse: " + dbid);
-  
-
-
-  // test invalid dbid not inside current floor
-
 }
 
 
@@ -25,6 +16,11 @@ $(document).ready(function () {
       $('#appBuckets').jstree(true).refresh();
     });
     
+    $('#testForgeAPI').click(function () {
+      console.log("received click event for testForgeAPI!")
+      launchViewer(-1); // urn is from json
+    });
+
     $('#createNewBucket').click(function () {
       createNewBucket();
     });
