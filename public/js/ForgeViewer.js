@@ -6,12 +6,23 @@ var property;
 var root;
 
 // Zhiyuan Li's test function
-let jsonString = '{"type":"new-program","uniqueId":"uuid-0949e25f-11f4-4e8b-984d-4029cf8a6d1c",'
-         + '"name":"Fm",'
-         + '"results":[{"bld_urn":{"value":"dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6amMyNGZuaXJ6aW1yNzE1Mzg0cGNkMWZ2ZGE1c3E3MjUtbW9kZWwvY29tYmluZWQuemlw",'
-         + '"display":"demo hospital"},"floor_guid":{"value":"0c3b3e3f-eaf5-55d6-6d0d-5cead9d17655","display":"full building"},'
-         + '"building_name":"demo hospital"}],"errors":[],"icon":"org.thingpedia.fm","id":6}'
-const jsonDict = JSON.parse(jsonString) // JavaScript built-in function JSON.parse() to convert the string into a JavaScript object:
+const jsonDict = {
+  "type":"new-program","uniqueId":"uuid-0949e25f-11f4-4e8b-984d-4029cf8a6d1c",
+  "name":"Fm",
+  "results":[
+    {"bld_urn":{
+      "value":"dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6amMyNGZuaXJ6aW1yNzE1Mzg0cGNkMWZ2ZGE1c3E3MjUtbW9kZWwvY29tYmluZWQuemlw",
+      "display":"demo hospital"
+    },
+    "floor_guid":{
+      "value":"b99a00f1-7234-7d70-1eb6-6b46cdc11a2a","display":"6th floor"},
+      "building_name":"demo hospital"
+    }
+  ],
+  "errors":[],
+  "icon":"org.thingpedia.fm",
+  "id":6
+  }
 let bld_urn = jsonDict.results[0].bld_urn.value
 let floor_guid = jsonDict.results[0].floor_guid.value
 
@@ -30,8 +41,7 @@ function launchViewer(urn) {
         modelBrowserExcludeRoot: false 
       }); // create view instance
     viewer.start();
-    // var documentId = 'urn:' + urn;
-    var documentId = 'urn:' + bld_urn;
+    var documentId = urn == -1 ? 'urn:' + bld_urn : 'urn:' + urn;
     Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
   });
 }

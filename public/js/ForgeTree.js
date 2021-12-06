@@ -1,3 +1,5 @@
+var direction = new THREE.Vector3();
+
 // Zhiyuan Li's test function for Forge API
 function test_fuction(){
   // function 1: goto 1 floor
@@ -17,8 +19,35 @@ $(document).ready(function () {
     });
     
     $('#testForgeAPI').click(function () {
-      console.log("received click event for testForgeAPI!")
-      launchViewer(-1); // urn is from json
+      console.log("received click event for 1st testForgeAPI!");
+      launchViewer(-1); // urn is from json, -1 is just a place holder
+    });
+
+    // AHU-2, dbid = [14519]
+    $('#testForgeAPI2').click(function () {
+      var dbid = 14519;
+      console.log("received click event for 2nd testForgeAPI! dbid = " + dbid);
+      // use "viewer.getSelection()" to print dbid of item you want
+      viewer.isolate([dbid]);
+      viewer.fitToView([dbid]);
+    });
+
+    // zoom in programmatically
+    $('#testForgeAPI_zoom_in').click(function () {
+      var sb=viewer.getCamera();
+      sb.getWorldDirection( direction );
+      var dist_scale = 10;
+      sb.position.add( direction.multiplyScalar(dist_scale) );
+      viewer.navigation.setView(sb.position,viewer.navigation.getTarget());
+    });
+
+    // zoom out programmatically
+    $('#testForgeAPI_zoom_out').click(function () {
+      var sb=viewer.getCamera();
+      sb.getWorldDirection( direction );
+      var dist_scale = -10;
+      sb.position.add( direction.multiplyScalar(dist_scale) );
+      viewer.navigation.setView(sb.position,viewer.navigation.getTarget());
     });
 
     $('#createNewBucket').click(function () {
