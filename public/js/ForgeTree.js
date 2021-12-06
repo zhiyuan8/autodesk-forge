@@ -1,5 +1,3 @@
-var direction = new THREE.Vector3();
-
 // Zhiyuan Li's test function for Forge API
 function test_fuction(){
   // function 1: goto 1 floor
@@ -23,31 +21,15 @@ $(document).ready(function () {
       launchViewer(-1); // urn is from json, -1 is just a place holder
     });
 
-    // AHU-2, dbid = [14519]
-    $('#testForgeAPI2').click(function () {
-      var dbid = 14519;
-      console.log("received click event for 2nd testForgeAPI! dbid = " + dbid);
-      // use "viewer.getSelection()" to print dbid of item you want
-      viewer.isolate([dbid]);
-      viewer.fitToView([dbid]);
-    });
-
-    // zoom in programmatically
-    $('#testForgeAPI_zoom_in').click(function () {
-      var sb=viewer.getCamera();
-      sb.getWorldDirection( direction );
-      var dist_scale = 10;
-      sb.position.add( direction.multiplyScalar(dist_scale) );
-      viewer.navigation.setView(sb.position,viewer.navigation.getTarget());
-    });
-
-    // zoom out programmatically
-    $('#testForgeAPI_zoom_out').click(function () {
-      var sb=viewer.getCamera();
-      sb.getWorldDirection( direction );
-      var dist_scale = -10;
-      sb.position.add( direction.multiplyScalar(dist_scale) );
-      viewer.navigation.setView(sb.position,viewer.navigation.getTarget());
+    // find slab on 5th floor, [164181]
+    $('#testForgeAPI4').click(function () {
+      const dbid = [164181];
+      viewer.loadDocumentNode(doc_global, root.findByGuid("ead690f4-3f91-4159-3409-5a8f82a0ad4d")).then(i => {});
+      // CANNOT WORK
+      // this.viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, (x) => {
+      //   viewer.isolate([164181]); // this viewer cannot work
+      //   viewer.fitToView([164181]);
+      // });
     });
 
     $('#createNewBucket').click(function () {

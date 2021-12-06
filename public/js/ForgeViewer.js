@@ -4,6 +4,8 @@ var floor; // viewable for a specific floor
 var dbid;  // dbid for a list of cursor selected objects
 var property;
 var root;
+var direction = new THREE.Vector3();
+var doc_global;
 
 // Zhiyuan Li's test function
 const jsonDict = {
@@ -47,6 +49,7 @@ function launchViewer(urn) {
 }
 
 function onDocumentLoadSuccess(doc) {
+  doc_global = doc;
   viewables = doc.getRoot().getDefaultGeometry();
   root = doc.getRoot();
 
@@ -76,29 +79,40 @@ function onDocumentLoadSuccess(doc) {
   // event is triggered after all the geometry is loaded
   this.viewer.addEventListener(Autodesk.Viewing.GEOMETRY_LOADED_EVENT, (x) => {
 
-  //   $('#testForgeAPI').click(function () { // button for test Forge AI
-  //     console.log("All building information : \n",viewables.parent.children);
+      // dbid = [14519,164191]
+      $('#testForgeAPI2').click(function () {
+        const dbid = [14519,164191];
+        console.log("received click event for 2nd testForgeAPI! dbid = " + dbid);
+        // use "viewer.getSelection()" to print dbid of item you want
+        viewer.isolate(dbid);
+        viewer.fitToView(dbid);
+      });
 
-  //     // LZY TEST 2: get dbid of selected elements, then proceed focus, isolate, showall, prinr property commands
-  //     dbid = viewer.getSelection();
-  //     if (dbid.length == 0){
-  //       alert("please use your cursor to select objects from your model, then click 'test Forge API' button again")
-  //       viewer.isolate([83422,83424]);
-  //     } else {
-  //       // https://stackoverflow.com/questions/66043440/get-properties-value-from-dbid-or-externalid-autodesk-forge
-  //       viewer.getProperties(dbid[0], function(e){
-  //             console.log("dbid of selected object: ",dbid);
-  //             console.log('Entire object response: ',e);
-  //             console.log('Properties: ',e.properties)
-  //       });
+      // hide slab
+      $('#testForgeAPI3').click(function () {
+        const dbid = [164191];
+        console.log("received click event for 3rd testForgeAPI! dbid = " + dbid);
+        // use "viewer.getSelection()" to print dbid of item you want
+        viewer.hide(dbid);
+      });
 
-  //       viewer.fitToView(dbid); // focus
-  //       setTimeout(function(){viewer.isolate(dbid);},5000); // isolate, wait 5s
-  //       setTimeout(function(){viewer.showAll();},5000);     // show all, wait 5s
-  //     }
-  // })
+    // zoom in programmatically
+    $('#testForgeAPI_zoom_in').click(function () {
+      var sb=viewer.getCamera();
+      sb.getWorldDirection( direction );
+      var dist_scale = 10;
+      sb.position.add( direction.multiplyScalar(dist_scale) );
+      viewer.navigation.setView(sb.position,viewer.navigation.getTarget());
+    });
 
-  // LZY TEST 3: print instance tree and show/hide specific layers
+    // zoom out programmatically
+    $('#testForgeAPI_zoom_out').click(function () {
+      var sb=viewer.getCamera();
+      sb.getWorldDirection( direction );
+      var dist_scale = -10;
+      sb.position.add( direction.multiplyScalar(dist_scale) );
+      viewer.navigation.setView(sb.position,viewer.navigation.getTarget());
+    });
   
   })
 
